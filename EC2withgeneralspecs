@@ -1,0 +1,28 @@
+    InstanceforCustodian:
+        Description: EC2 Instance for Custodian App
+        Type: AWS::EC2::Instance
+        Properties:
+            ImageId:
+                Ref: ImageIdParameter
+            InstanceType:
+                Ref: InstanceTypeParameter
+            KeyName: 
+                Ref: KeyName
+            SecurityGroups: 
+                - Ref: InstanceSecurityGroup
+            IamInstanceProfile: !Ref CustodianProfile
+            Tags: 
+                - Key: "env"
+                  Value: "dev"
+                - Key: "Name"
+                  Value: !Sub 
+                    - 'Custodian-${Envi}'
+                    - Envi: !Ref Env
+                    # Fn::Sub:
+                    # - "Custodian-${Enviro}"
+                    # - Enviro:
+                    #     Ref: Env
+            UserData:
+                Fn::Base64: |
+                    #!/bin/bash
+                    sudo yum update -y
