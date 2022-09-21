@@ -1,0 +1,28 @@
+    CustodianCICD:
+        Type: 'AWS::IAM::Role'
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                - Effect: Allow
+                  Principal:
+                   Service:
+                    - ec2.amazonaws.com
+                    - codedeploy.amazonaws.com
+                    - s3.amazonaws.com
+                  Action:
+                   - 'sts:AssumeRole'
+
+            Path: /
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/AmazonS3FullAccess
+                - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
+
+
+    CustodianProfile:
+        Type: AWS::IAM::InstanceProfile
+        Properties: 
+            InstanceProfileName: CustodianProfile
+            Path: /
+            Roles: 
+              - Ref: CustodianCICD
