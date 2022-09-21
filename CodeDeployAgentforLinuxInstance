@@ -1,0 +1,7 @@
+                    sudo yum install ruby -y
+                    sudo touch ~/.bashrc
+                    cd /home/ec2-user
+                    wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install
+                    chmod +x ./install
+                    sudo ./install auto
+                    sudo service codedeploy-agent start
