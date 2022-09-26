@@ -1,0 +1,6 @@
+Create a procfile within the package.json directory
+procfile
+web: npm run deploy
+Edit package.json add this
+pakage.json
+"deploy":"npm ci && npm run build && npm run start:prod"
