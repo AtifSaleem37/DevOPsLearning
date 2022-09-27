@@ -4,3 +4,4 @@ web: npm run deploy
 Edit package.json add this
 pakage.json
 "deploy":"npm ci && npm run build && npm run start:prod"
+#It can be deployed without build stage.
