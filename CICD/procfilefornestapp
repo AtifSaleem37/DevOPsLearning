@@ -5,3 +5,6 @@ Edit package.json add this
 pakage.json
 "deploy":"npm ci && npm run build && npm run start:prod"
 #It can be deployed without build stage.
+  for main file
+  const port = process.env.PORT || 3000
+  await app.listen(port);
