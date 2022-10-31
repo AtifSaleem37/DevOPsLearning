@@ -1,0 +1,6 @@
+- Update the system
+- install nodejs, npm and pm2
+- clone the project
+- install dependencies npm i
+- start the process using pm2
+      pm2 start npm --name "Crowd Shuttle Production" -- start
