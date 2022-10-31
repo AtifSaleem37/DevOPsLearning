@@ -1,6 +1,10 @@
 - Update the system
+            sudo apt-get update
 - install nodejs, npm and pm2
-- clone the project
+            sudo apt install nodejs
+            sudo apt install npm
+            sudo npm install pm2@latest -g
+- clone the project and cd to that directory
 - install dependencies npm i
 - start the process using pm2
       pm2 start npm --name "Crowd Shuttle Production" -- start
