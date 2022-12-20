@@ -1,0 +1,46 @@
+name: Pre merge
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, edited ]
+    branches:
+      - develop
+      - qa
+      - main
+
+jobs:
+  pre-merge:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3.1.0
+
+      - name: 🤫 Create .env file for DEV
+        if: github.event.pull_request.base.ref == 'develop'
+        run: |
+          touch .env
+          echo ${{ secrets.ENV }} | base64 --decode > .env
+          printf "\nCURRENT=DEV" >> .env
+      - name: 🤫 Create .env file for QA
+        if: github.event.pull_request.base.ref == 'qa'
+        run: |
+          touch .env
+          echo ${{ secrets.ENV_QA }} | base64 --decode > .env
+          printf "\nCURRENT=QA" >> .env
+      - name: 🤫 Create .env file for PROD
+        if: github.event.pull_request.base.ref == 'main'
+        run: |
+          touch .env
+          echo ${{ secrets.ENV_PROD }} | base64 --decode > .env
+      - name: ✨ Setup Node
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 16.x
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🔨 Build Web
+        run: npm run build
